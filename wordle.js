@@ -33,4 +33,11 @@ document.addEventListener("keyup", (e) => {
             }
         }
     }
+    else if (e.code == "Backspace") {
+        if (0 < col && col <= width) {
+            col -=1;
+        }
+        let currtile = document.getElementById(row.toString() + "-" + col.toString());
+        currtile.innerText = "";
+    }
 })

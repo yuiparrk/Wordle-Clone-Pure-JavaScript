@@ -51,5 +51,5 @@ hr {
 .absent {
     background-color: #787C7E;
     color: white;
-    background-color: white;
+    border-color: white;
 }

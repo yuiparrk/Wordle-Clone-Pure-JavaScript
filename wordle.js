@@ -22,6 +22,7 @@ function intialize() {
 }
 
 document.addEventListener("keyup", (e) => {
+    let counter = 0;
     if (gameOver) return;
 
     if ("KeyA" <= e.code && e.code <= "KeyZ"){
@@ -30,21 +31,28 @@ document.addEventListener("keyup", (e) => {
             if (currtile.innerText == "") {
                 currtile.innerText = e.code[3]; //index 3 bc we just want the "A" from "KeyA"
                 col += 1;
+                counter += 1;
             }
         }
     }
     else if (e.code == "Backspace") {
         if (0 < col && col <= width) {
             col -=1;
+            counter -= 1;
         }
         let currtile = document.getElementById(row.toString() + "-" + col.toString());
         currtile.innerText = "";
     }
 
     else if (e.code == "Enter") {
-        update();
-        row += 1;
-        col = 0;
+        if (counter == 5) {
+            update();
+            row += 1;
+            col = 0;
+        }
+        else {
+            alert("need 5 letters");
+        }
     }
 
     if (!gameOver && row == height) {

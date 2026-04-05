@@ -16,7 +16,6 @@ function intialize() {
             let tile = document.createElement("span");
             tile.id = r.toString() + "-" + c.toString();
             tile.classList.add("tile");
-            tile.innerText = "P";
             document.getElementById("board").appendChild(tile);
         }
     }
@@ -25,12 +24,12 @@ function intialize() {
 document.addEventListener("keyup", (e) => {
     if (gameOver) return;
 
-    alert(e.code);
     if ("KeyA" <= e.code && e.code <= "KeyZ"){
         if (col < width) {
             let currtile = document.getElementById(row.toString() + "-" + col.toString());
-            if (currtile.innerText = "") {
+            if (currtile.innerText == "") {
                 currtile.innerText = e.code[3]; //index 3 bc we just want the "A" from "KeyA"
+                col += 1;
             }
         }
     }

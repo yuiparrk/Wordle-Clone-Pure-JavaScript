@@ -4,9 +4,16 @@ var row = 0;
 var col = 0;
 
 var gameOver = false;
-var word = "SQUID";
+
+function getRandomWord() {
+    let randomIndex = Math.floor(Math.random() * words.length);
+    return words[randomIndex];
+}
+
+var word;
 
 window.onload = function(){
+    word = getRandomWord();
     intialize();
 }
 
@@ -22,30 +29,26 @@ function intialize() {
 }
 
 document.addEventListener("keyup", (e) => {
-    let counter = 0;
     if (gameOver) return;
-
     if ("KeyA" <= e.code && e.code <= "KeyZ"){
         if (col < width) {
             let currtile = document.getElementById(row.toString() + "-" + col.toString());
             if (currtile.innerText == "") {
                 currtile.innerText = e.code[3]; //index 3 bc we just want the "A" from "KeyA"
                 col += 1;
-                counter += 1;
             }
         }
     }
     else if (e.code == "Backspace") {
         if (0 < col && col <= width) {
             col -=1;
-            counter -= 1;
         }
         let currtile = document.getElementById(row.toString() + "-" + col.toString());
         currtile.innerText = "";
     }
 
     else if (e.code == "Enter") {
-        if (counter == 5) {
+        if (col == width) {
             update();
             row += 1;
             col = 0;
@@ -79,6 +82,7 @@ function update() {
 
         if (correct == width) {
             gameOver = true;
+            document.getElementById("answer").innerText = `You won in ${row} guesses!`;
         }
     }
 }

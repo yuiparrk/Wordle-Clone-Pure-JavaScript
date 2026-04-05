@@ -1,3 +1,0 @@
-extra features:
-randomized word list
-you can only guess real words

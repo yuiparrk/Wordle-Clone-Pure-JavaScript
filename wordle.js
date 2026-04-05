@@ -15,6 +15,8 @@ var word;
 window.onload = function(){
     word = getRandomWord();
     intialize();
+    console.log(word)
+
 }
 
 function intialize() {
@@ -49,6 +51,11 @@ document.addEventListener("keyup", (e) => {
 
     else if (e.code == "Enter") {
         if (col == width) {
+            let guess = getCurrentWord()
+            if (!isValidWord(guess)) {
+                alert("Not a valid word");
+                return;
+            }
             update();
             row += 1;
             col = 0;
@@ -63,6 +70,19 @@ document.addEventListener("keyup", (e) => {
         document.getElementById("answer").innerText = word;
     }
 })
+
+function getCurrentWord() {
+    let guess = "";
+    for (let c = 0; c < width; c++) {
+        let currtile = document.getElementById(row.toString() + "-" + c.toString());
+        guess += currtile.innerText;
+    }
+    return guess;
+}
+
+function isValidWord(word) {
+    return words.includes(word);
+}
 
 function update() {
     let correct = 0;
@@ -82,7 +102,12 @@ function update() {
 
         if (correct == width) {
             gameOver = true;
-            document.getElementById("answer").innerText = `You won in ${row} guesses!`;
+            if (row == 0) {
+                document.getElementById("answer").innerText = `You won in ${row + 1} guess!`;
+            }
+            else {
+                document.getElementById("answer").innerText = `You won in ${row + 1} guesses!`;
+            }
         }
     }
 }
